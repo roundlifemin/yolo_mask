@@ -3,6 +3,8 @@ from ultralytics import YOLO
 import cv2
 import tempfile
 import numpy as np
+import os
+os.environ["YOLO_CONFIG_DIR"] = "/tmp/Ultralytics"  # 쓰기 가능한 경로
 
 st.set_page_config(page_title="YOLOv8 마스크 탐지", layout="centered")
 st.title("😷 마스크 착용 상태 탐지 - YOLOv8")
@@ -92,3 +94,4 @@ elif mode == "동영상":
             stframe.image(result_rgb, channels="RGB", use_container_width=True)
 
         cap.release()
+
