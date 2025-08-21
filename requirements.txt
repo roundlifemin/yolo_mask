@@ -1,6 +1,6 @@
 streamlit
-ultralytics
-opencv-python-headless
+ultralytics==8.0.20
+opencv-python-headless==4.7.0.72
 numpy
-streamlit-webrtc
-av
+streamlit-webrtc==0.45.0
+av==10.0.0
