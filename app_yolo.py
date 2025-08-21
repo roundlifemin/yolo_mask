@@ -1,5 +1,3 @@
-%%writefile app.py
-
 import streamlit as st
 from ultralytics import YOLO
 import cv2
@@ -94,3 +92,4 @@ elif mode == "동영상":
             stframe.image(result_rgb, channels="RGB", use_container_width=True)
 
         cap.release()
+
