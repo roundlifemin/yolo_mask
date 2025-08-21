@@ -14,6 +14,11 @@ import av  # streamlit-webrtc가 사용하는 영상 프레임 타입
 st.set_page_config(page_title="YOLOv8 마스크 탐지", layout="centered")
 st.title("😷 마스크 착용 상태 탐지 - YOLOv8")
 
+# WebRTC용 STUN 설정
+rtc_config = RTCConfiguration(
+    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+)
+
 # ---------------------------
 # 모델 불러오기 (캐시)
 # ---------------------------
@@ -85,12 +90,22 @@ if mode == "이미지":
 # ---------------------------
 # 2) 웹캠(브라우저)
 # ---------------------------
+# elif mode == "웹캠(브라우저)":
+#     st.info("브라우저 카메라를 사용합니다. 접근 권한을 허용해주세요.")
+#     # 현재 슬라이더 값을 transformer에 전달하기 위해 factory로 주입
+#     webrtc_streamer(
+#         key="yolo-webrtc",
+#         mode=WebRtcMode.SENDRECV,
+#         media_stream_constraints={"video": True, "audio": False},
+#         video_transformer_factory=lambda: YoloTransformer(conf=conf, imgsz=imgsz),
+#     )
 elif mode == "웹캠(브라우저)":
     st.info("브라우저 카메라를 사용합니다. 접근 권한을 허용해주세요.")
-    # 현재 슬라이더 값을 transformer에 전달하기 위해 factory로 주입
+
     webrtc_streamer(
         key="yolo-webrtc",
         mode=WebRtcMode.SENDRECV,
+        rtc_configuration=rtc_config,  # ✅ 명시적 설정 추가
         media_stream_constraints={"video": True, "audio": False},
         video_transformer_factory=lambda: YoloTransformer(conf=conf, imgsz=imgsz),
     )
@@ -129,3 +144,4 @@ elif mode == "동영상":
 
         cap.release()
         st.success("처리가 완료되었습니다.")
+
