@@ -42,26 +42,26 @@ elif mode == "웹캠":
             result = detect_image(img)
             return av.VideoFrame.from_ndarray(result, format="bgr24")
 
-   try:
-     webrtc_streamer(
-        key="mask-detect",
-        video_processor_factory=VideoTransformer,
-        media_stream_constraints={"video": True, "audio": False},
-        rtc_configuration={
-            "iceServers": [
-                {"urls": "stun:stun.l.google.com:19302"},
-                {
-                    "urls": "turn:openrelay.metered.ca:80",
-                    "username": "openrelayproject",
-                    "credential": "openrelayproject"
-                },
-            ]
-        },
-        async_processing=True,
-     )
-   except Exception as e:
-     st.error(f"웹캠 스트리밍 실행 중 오류 발생: {e}")
-     st.info("Streamlit Cloud 환경에서는 TURN/STUN 연결 문제로 웹캠 스트리밍이 실패할 수 있습니다. 이미지 업로드 모드를 권장합니다.")
+    try:
+      webrtc_streamer(
+         key="mask-detect",
+         video_processor_factory=VideoTransformer,
+         media_stream_constraints={"video": True, "audio": False},
+         rtc_configuration={
+             "iceServers": [
+                 {"urls": "stun:stun.l.google.com:19302"},
+                 {
+                     "urls": "turn:openrelay.metered.ca:80",
+                     "username": "openrelayproject",
+                     "credential": "openrelayproject"
+                 },
+             ]
+         },
+         async_processing=True,
+      )
+    except Exception as e:
+      st.error(f"웹캠 스트리밍 실행 중 오류 발생: {e}")
+      st.info("Streamlit Cloud 환경에서는 TURN/STUN 연결 문제로 웹캠 스트리밍이 실패할 수 있습니다. 이미지 업로드 모드를 권장합니다.")
 
 
 # 동영상 탐지
@@ -86,6 +86,7 @@ elif mode == "동영상":
                 break
 
         cap.release()
+
 
 
 
