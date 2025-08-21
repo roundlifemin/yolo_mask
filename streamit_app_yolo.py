@@ -42,20 +42,21 @@ elif mode == "웹캠":
             return av.VideoFrame.from_ndarray(result, format="bgr24")
 
     webrtc_streamer(
-        key="mask-detect",
-        video_transformer_factory=VideoTransformer,
-        media_stream_constraints={"video": True, "audio": False},
-        rtc_configuration={
-            "iceServers": [
-                {"urls": ["stun:stun.l.google.com:19302"]},
-                {
-                    "urls": ["turn:openrelay.metered.ca:80", "turn:openrelay.metered.ca:443"],
-                    "username": "openrelayproject",
-                    "credential": "openrelayproject"
-                },
-            ]
-        }
-    )
+    key="mask-detect",
+    video_transformer_factory=VideoTransformer,
+    media_stream_constraints={"video": True, "audio": False},
+    rtc_configuration={  # <<=== 반드시 추가
+        "iceServers": [
+            {"urls": "stun:stun.l.google.com:19302"},
+            {
+                "urls": "turn:openrelay.metered.ca:80",
+                "username": "openrelayproject",
+                "credential": "openrelayproject"
+            },
+        ]
+    }
+)
+
 
 # 동영상 탐지
 elif mode == "동영상":
@@ -76,3 +77,4 @@ elif mode == "동영상":
             stframe.image(cv2.cvtColor(result_bgr, cv2.COLOR_BGR2RGB), channels="RGB", use_container_width=True)
 
         cap.release()
+
