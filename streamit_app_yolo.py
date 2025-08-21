@@ -10,7 +10,7 @@ import logging
 st.set_page_config(page_title="YOLOv8 마스크 탐지", layout="centered")
 st.title("😷 마스크 착용 상태 탐지 - YOLOv8")
 
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource
 def load_model():
     return YOLO("best.pt")  # 반드시 같은 폴더에 best.pt 포함
 
@@ -86,3 +86,4 @@ elif mode == "동영상":
                 break
 
         cap.release()
+
