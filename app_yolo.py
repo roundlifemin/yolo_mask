@@ -11,6 +11,8 @@ import numpy as np
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, WebRtcMode
 import av  # streamlit-webrtc가 사용하는 영상 프레임 타입
 
+from streamlit_webrtc import RTCConfiguration
+
 st.set_page_config(page_title="YOLOv8 마스크 탐지", layout="centered")
 st.title("😷 마스크 착용 상태 탐지 - YOLOv8")
 
@@ -144,4 +146,5 @@ elif mode == "동영상":
 
         cap.release()
         st.success("처리가 완료되었습니다.")
+
 
