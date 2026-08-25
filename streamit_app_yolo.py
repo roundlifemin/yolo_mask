@@ -1,3 +1,5 @@
+# %%writefile streamit_app_yolo.py
+
 import os
 import tempfile
 import cv2
